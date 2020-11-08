@@ -1,32 +1,40 @@
-require('dotenv').config();
-const Discord = require('discord.js');
+require("dotenv").config();
+const Discord = require("discord.js");
+const axios = require("axios");
+const cheerio = require("cheerio");
 const bot = new Discord.Client();
-bot.commands = new Discord.Collection();
-const botCommands = require('./commands');
-
-Object.keys(botCommands).map(key => {
-  bot.commands.set(botCommands[key].name, botCommands[key]);
-});
-
 const TOKEN = process.env.TOKEN;
 
 bot.login(TOKEN);
 
-bot.on('ready', () => {
-  console.info(`Logged in as ${bot.user.tag}!`);
-});
-
-bot.on('message', msg => {
-  const args = msg.content.split(/ +/);
-  const command = args.shift().toLowerCase();
-  console.info(`Called command: ${command}`);
-
-  if (!bot.commands.has(command)) return;
-
-  try {
-    bot.commands.get(command).execute(msg, args);
-  } catch (error) {
-    console.error(error);
-    msg.reply('there was an error trying to execute that command!');
+function Spotify() {
+  function initialStep() {
+    axios
+      .get("https://spotifycharts.com/regional/us/daily/latest")
+      .then((response) => {
+        const $ = cheerio.load(response.data);
+        const latestDate = $(
+          '.responsive-select[data-type="date"] > ul > li'
+        ).text();
+        const [month, day, year] = latestDate.split("/");
+        fetchLatestChart({ year, month, day });
+      });
   }
+
+  function fetchLatestChart({ year, month, day }) {
+    axios
+      .get(
+        `https://spotifycharts.com/regional/us/daily/${year}-${month}-${day}`
+      )
+      .then((response) => {
+        const $ = cheerio.load(response.data);
+        console.info($(".chart-table-track > span").text());
+      });
+  }
+}
+
+bot.on("ready", () => {
+  console.info(`Logged in as ${bot.user.tag}!`);
+
+  Spotify();
 });
