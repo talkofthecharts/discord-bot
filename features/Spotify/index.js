@@ -41,7 +41,9 @@ function formatSongData({ song, artist, streams, index, yesterdaysChart }) {
       )
     : null;
   const percentChangeFormatted = yesterdayData
-    ? `${percentChange < 0 ? "🔴" : "🟢"} ${percentChange}%`
+    ? `${
+        percentChange === 0 ? "⚪" : percentChange < 0 ? "🔴" : "🟢"
+      } ${percentChange}%`
     : "🟣";
 
   const positionChange = yesterdayIndex - index + 1;
