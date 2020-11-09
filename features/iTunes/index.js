@@ -47,10 +47,13 @@ async function getDailySailes() {
 }
 
 module.exports = (bot) => {
-  setInterval(async () => {
+  const main = async () => {
     sendMessages(bot.channels, await getDailySailes(), [
       SALES_CHANNEL,
       LIVE_UPDATES_CHANNEL,
     ]);
-  }, POLLING_INTERVAL);
+  };
+
+  main();
+  setInterval(main, POLLING_INTERVAL);
 };
