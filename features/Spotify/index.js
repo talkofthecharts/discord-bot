@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./keepAlive.js");
 
 const axios = require("axios");
 const cheerio = require("cheerio");
@@ -6,12 +7,7 @@ const { format } = require("date-fns");
 const fs = require("fs");
 const { getPercentChange } = require("../../utils");
 
-const {
-  // SPOTIFY_CHANNEL,
-  // LIVE_CHART_UPDATES_CHANNEL,
-  TEST_CHANNEL,
-} = process.env;
-
+const { SPOTIFY_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
 const POLLING_INTERVAL = 60 * 1000; // 1 minute
 const MEMORY_FILE = "./memory.json";
 const MEMORY = JSON.parse(fs.readFileSync(MEMORY_FILE));
@@ -22,11 +18,11 @@ function setBot(b) {
   bot = b;
 }
 
-function sendMessages(messages) {
-  const channel = bot.channels.get(TEST_CHANNEL);
-
+function sendMessages(messages, channelIds) {
   messages.forEach((message) => {
-    channel.send(message);
+    channelIds.forEach((channelId) => {
+      bot.channels.get(channelId).send(message);
+    });
   });
 }
 
@@ -108,7 +104,7 @@ async function handleCommand(command) {
       break;
   }
 
-  sendMessages(messages);
+  sendMessages(messages, []);
 }
 
 async function buildMessagesFromLatestChart() {
@@ -203,7 +199,10 @@ module.exports = (bot) => {
   setBot(bot);
 
   setInterval(async () => {
-    sendMessages(await buildMessagesFromLatestChart());
+    sendMessages(await buildMessagesFromLatestChart(), [
+      SPOTIFY_CHANNEL,
+      LIVE_CHART_UPDATES_CHANNEL,
+    ]);
   }, POLLING_INTERVAL);
 
   bot.on("message", (message) => {
