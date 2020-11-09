@@ -63,7 +63,13 @@ function getTop200($) {
 
   $(".chart-table-track").each((index, el) => {
     if (index !== 0) {
-      data.push({ index, ...getSongDetails($(el)) });
+      data.push({
+        index,
+        ...getSongDetails($(el)),
+        isDebut:
+          $(el).parent().find(".chart-table-trend__icon > svg > circle")
+            .length !== 0,
+      });
     }
   });
 
@@ -148,6 +154,7 @@ async function buildMessagesFromLatestChart() {
 
   // TODO: optimize this as it's pretty slow atm lol
   const biggestIncreases = [...todaysChart]
+    .filter(({ isDebut }) => !isDebut)
     .sort((a, b) => {
       const aYesterday = yesterdaysChart.find(
         (data) => data.song === a.song && data.artist === a.artist
@@ -155,12 +162,8 @@ async function buildMessagesFromLatestChart() {
       const bYesterday = yesterdaysChart.find(
         (data) => data.song === b.song && data.artist === b.artist
       );
-      const aChange = aYesterday
-        ? getPercentChange(a.streams, aYesterday.streams)
-        : 0;
-      const bChange = bYesterday
-        ? getPercentChange(b.streams, bYesterday.streams)
-        : 0;
+      const aChange = getPercentChange(a.streams, aYesterday.streams);
+      const bChange = getPercentChange(b.streams, bYesterday.streams);
 
       return bChange - aChange;
     })
