@@ -4,7 +4,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const { sendMessages } = require("../../utils");
 
-const { SALES_CHANNEL, LIVE_UPDATES_CHANNEL } = process.env;
+const { SALES_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
 const POLLING_INTERVAL = 1000 * 60 * 60 * 24; // 1 day
 
 // The 50th song has this many sales per day (requires calibration).
@@ -50,7 +50,7 @@ module.exports = (bot) => {
   const main = async () => {
     sendMessages(bot.channels, await getDailySailes(), [
       SALES_CHANNEL,
-      LIVE_UPDATES_CHANNEL,
+      LIVE_CHART_UPDATES_CHANNEL,
     ]);
   };
 
