@@ -183,13 +183,13 @@ async function buildMessagesFromLatestChart() {
       .join("\n")}`,
 
     `📈 Spotify US biggest percent increases: \n ${biggestIncreases
-      .slice(0, 10)
+      .slice(0, 20)
       .join("\n")}`,
 
     `📉 Spotify US biggest percent decreases: \n ${biggestIncreases
       .slice()
       .reverse()
-      .slice(0, 10)
+      .slice(0, 20)
       .join("\n")}`,
   ];
 }
