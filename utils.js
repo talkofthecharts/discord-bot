@@ -6,6 +6,15 @@ const precisionRound = (number, precision) =>
 const getPercentChange = (a, b) =>
   precisionRound(100 * -(1 - toNumber(a) / toNumber(b)), 0);
 
+const sendMessages = (channels, messages, channelIds) => {
+  messages.forEach((message) => {
+    channelIds.forEach((channelId) => {
+      channels.get(channelId).send(message);
+    });
+  });
+};
+
 module.exports = {
   getPercentChange,
+  sendMessages,
 };

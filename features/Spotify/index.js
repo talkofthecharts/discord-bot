@@ -4,26 +4,12 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const { format } = require("date-fns");
 const fs = require("fs");
-const { getPercentChange } = require("../../utils");
+const { getPercentChange, sendMessages } = require("../../utils");
 
 const { SPOTIFY_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
 const POLLING_INTERVAL = 1000 * 60 * 2; // 2 minutes
 const MEMORY_FILE = "./memory.json";
 const MEMORY = JSON.parse(fs.readFileSync(MEMORY_FILE));
-
-let bot = null;
-
-function setBot(b) {
-  bot = b;
-}
-
-function sendMessages(messages, channelIds) {
-  messages.forEach((message) => {
-    channelIds.forEach((channelId) => {
-      bot.channels.get(channelId).send(message);
-    });
-  });
-}
 
 function formatSongData({ song, artist, streams, index, yesterdaysChart }) {
   const position = `#${index}`;
@@ -204,10 +190,8 @@ async function buildMessagesFromLatestChart() {
 }
 
 module.exports = (bot) => {
-  setBot(bot);
-
   setInterval(async () => {
-    sendMessages(await buildMessagesFromLatestChart(), [
+    sendMessages(bot.channels, await buildMessagesFromLatestChart(), [
       SPOTIFY_CHANNEL,
       LIVE_CHART_UPDATES_CHANNEL,
     ]);
