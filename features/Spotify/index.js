@@ -171,7 +171,7 @@ async function buildMessagesFromLatestChart() {
     "https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png",
 
     // 1-20 of the top 40
-    `🏆 Spotify US Top 40: \n ${formattedStrings.slice(0, 20).join("\n")}`,
+    `🇺🇸 🏆 **Top 40**: \n ${formattedStrings.slice(0, 20).join("\n")}`,
 
     // 20-40 of the top 40
     formattedStrings.slice(20, 40).join("\n"),
@@ -180,15 +180,15 @@ async function buildMessagesFromLatestChart() {
     // debuts, it will fail if the string is >2000 characters. For now let's
     // see how it does for most cases. Also, no way to tell if a song is a
     // debut or a re-entry, so all are "new" right now.
-    `🔮 Spotify US debuts/re-entries: \n ${getDebuts($today)
+    `💈 **Debuts & re-entries**: \n ${getDebuts($today)
       .map((data) => formatSongData({ ...data, yesterdaysChart }))
       .join("\n")}`,
 
-    `📈 Spotify US biggest percent increases: \n ${biggestIncreases
+    `📈 **Biggest percent increases**: \n ${biggestIncreases
       .slice(0, 20)
       .join("\n")}`,
 
-    `📉 Spotify US biggest percent decreases: \n ${biggestIncreases
+    `📉 **Biggest percent decreases**: \n ${biggestIncreases
       .slice()
       .reverse()
       .slice(0, 20)
