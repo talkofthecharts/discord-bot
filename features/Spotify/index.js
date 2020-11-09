@@ -7,7 +7,7 @@ const fs = require("fs");
 const { getPercentChange } = require("../../utils");
 
 const { SPOTIFY_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
-const POLLING_INTERVAL = 60 * 1000; // 1 minute
+const POLLING_INTERVAL = 1000 * 60 * 2; // 2 minutes
 const MEMORY_FILE = "./memory.json";
 const MEMORY = JSON.parse(fs.readFileSync(MEMORY_FILE));
 
