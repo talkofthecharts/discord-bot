@@ -169,12 +169,16 @@ async function buildMessagesFromLatestChart() {
     })
     .map((data) => formatSongData({ ...data, yesterdaysChart }));
 
+  const formattedDate = format(new Date(todayDateString), "MMM. d, y");
+
   return [
     // Spotify logo
     "https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png",
 
     // 1-20 of the top 40
-    `🇺🇸 🏆 **Top 40**:\n${formattedStrings.slice(0, 20).join("\n")}`,
+    `🇺🇸 ${formattedDate} — **Top 40**:\n${formattedStrings
+      .slice(0, 20)
+      .join("\n")}`,
 
     // 20-40 of the top 40
     formattedStrings.slice(20, 40).join("\n"),
