@@ -169,7 +169,7 @@ async function buildMessagesFromLatestChart() {
     })
     .map((data) => formatSongData({ ...data, yesterdaysChart }));
 
-  const formattedDate = format(new Date(todayDateString), "MMM. d, y");
+  const formattedDate = format(new Date(todayDateString), "MMM. d, y (EEEE)");
 
   return [
     // Spotify logo
