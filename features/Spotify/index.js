@@ -1,5 +1,4 @@
 require("dotenv").config();
-require("./keepAlive.js");
 
 const axios = require("axios");
 const cheerio = require("cheerio");

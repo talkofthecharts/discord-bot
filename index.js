@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./keepAlive.js");
 
 const Discord = require("discord.js");
 const Spotify = require("./features/Spotify");
