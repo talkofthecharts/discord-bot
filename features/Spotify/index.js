@@ -54,9 +54,11 @@ function formatSongData({ song, artist, streams, index, yesterdaysChart }) {
     ? positionChange === 0
       ? "="
       : (positionChange < 0 ? "" : "+") + positionChange
-    : "";
+    : null;
 
-  return `${position} (${pPlus}). ${boldSong} - ${streams} ${percentChangeFormatted}`;
+  return `${position}. ${
+    pPlus ? `(${pPlus})` : ""
+  } ${boldSong} - ${streams} ${percentChangeFormatted}`;
 }
 
 function getTop200($) {
