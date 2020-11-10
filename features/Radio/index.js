@@ -21,7 +21,7 @@ async function buildMessagesFromRadioChart() {
 
   const todayDateString = `${year}-${month}-${day}`;
 
-  if (memory("Radio", todayDateString)) {
+  if (memory("Radio", { payload: todayDateString })) {
     return [];
   }
 

@@ -113,7 +113,7 @@ async function buildMessagesFromLatestChart() {
     .split("/");
   const todayDateString = `${year}-${month}-${day}`;
 
-  if (memory("Spotify", todayDateString)) {
+  if (memory("Spotify", { payload: todayDateString })) {
     return [];
   }
 

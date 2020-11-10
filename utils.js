@@ -18,15 +18,28 @@ const sendMessages = (channels, messages, channelIds) => {
   });
 };
 
-const memory = (field, date) => {
-  if (MEMORY[field].datesChecked.includes(date)) {
-    return true;
+const memory = (field, { type = null, payload }) => {
+  if (type == null) {
+    if (MEMORY[field].datesChecked.includes(payload)) {
+      return true;
+    }
+
+    MEMORY[field].datesChecked.push(payload);
+    fs.writeFileSync("./memory.json", JSON.stringify(MEMORY, null, 2));
+
+    return false;
   }
 
-  MEMORY[field].datesChecked.push(date);
-  fs.writeFileSync("./memory.json", JSON.stringify(MEMORY, null, 2));
+  if (field === "iTunes" && type === "#1") {
+    if (MEMORY.iTunes.numberOnes.includes(payload)) {
+      return true;
+    }
 
-  return false;
+    MEMORY.iTunes.numberOnes.push(payload);
+    fs.writeFileSync("./memory.json", JSON.stringify(MEMORY, null, 2));
+
+    return false;
+  }
 };
 
 module.exports = {

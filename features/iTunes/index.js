@@ -2,14 +2,28 @@ require("dotenv").config();
 
 const axios = require("axios");
 const cheerio = require("cheerio");
-const { sendMessages, memory } = require("../../utils");
 const { format } = require("date-fns");
+const { sendMessages, memory } = require("../../utils");
 
 const { SALES_CHANNEL, LIVE_CHART_UPDATES_CHANNEL, TEST_CHANNEL } = process.env;
 const POLLING_INTERVAL = 1000 * 60; // 1 minute
 
+const CHANNEL_IDS = [SALES_CHANNEL, LIVE_CHART_UPDATES_CHANNEL, TEST_CHANNEL];
+
 // The 50th song has this many sales per day (requires calibration).
 const REFERENCE_SALES = 2400 / 7;
+
+async function getNumberOne() {
+  const response = await axios.get("https://kworb.net/charts/itunes/us.html");
+  const $ = cheerio.load(response.data);
+  const numberOneSong = $("tbody .mp.text").first().text();
+
+  if (memory("iTunes", { type: "#1", payload: numberOneSong })) {
+    return [];
+  }
+
+  return [`"${numberOneSong}" is now #1 on US iTunes.`];
+}
 
 async function getDailySailes() {
   const response = await axios.get("https://kworb.net/pop/week.html");
@@ -54,12 +68,10 @@ module.exports = (bot) => {
     const yesterdayDateString = format(now, "yyyy-MM-dd");
 
     if (now.getUTCHours() === 12 && !memory("iTunes", yesterdayDateString)) {
-      sendMessages(bot.channels, await getDailySailes(), [
-        SALES_CHANNEL,
-        LIVE_CHART_UPDATES_CHANNEL,
-        TEST_CHANNEL,
-      ]);
+      sendMessages(bot.channels, await getDailySailes(), CHANNEL_IDS);
     }
+
+    sendMessages(bot.channels, await getNumberOne(), CHANNEL_IDS);
   };
 
   main();
