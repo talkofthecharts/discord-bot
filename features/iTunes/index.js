@@ -25,7 +25,7 @@ async function getNumberOne() {
   return [`"${numberOneSong}" is now #1 on US iTunes.`];
 }
 
-async function getDailySailes() {
+async function getDailySailes(yesterdayDateString) {
   const response = await axios.get("https://kworb.net/pop/week.html");
   const $ = cheerio.load(response.data);
 
@@ -50,10 +50,12 @@ async function getDailySailes() {
       `#${index + 1}. **${song}** (${sales.toLocaleString("en-US")})`
   );
 
+  const date = format(new Date(yesterdayDateString), "MMM. d, y (EEEE)");
+
   return [
     `https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/ITunes_12.2_logo.png/768px-ITunes_12.2_logo.png`,
 
-    `US digital sales in the past 24 hours (est.):`,
+    `US digital sales est. for ${date}:`,
 
     formattedSalesData.slice(0, 20).join("\n"),
 
@@ -68,7 +70,11 @@ module.exports = (bot) => {
     const yesterdayDateString = format(now, "yyyy-MM-dd");
 
     if (now.getUTCHours() === 12 && !memory("iTunes", yesterdayDateString)) {
-      sendMessages(bot.channels, await getDailySailes(), CHANNEL_IDS);
+      sendMessages(
+        bot.channels,
+        await getDailySailes(yesterdayDateString),
+        CHANNEL_IDS
+      );
     }
 
     sendMessages(bot.channels, await getNumberOne(), CHANNEL_IDS);
