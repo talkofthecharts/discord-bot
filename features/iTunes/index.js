@@ -47,7 +47,7 @@ async function getDailySailes(yesterdayDateString) {
 
   const formattedSalesData = data.map(
     ({ song, sales }, index) =>
-      `#${index + 1}. **${song}** (${sales.toLocaleString("en-US")})`
+      `#${index + 1}. **${song}** - ${sales.toLocaleString("en-US")}`
   );
 
   const date = format(new Date(yesterdayDateString), "MMM. d, y (EEEE)");
