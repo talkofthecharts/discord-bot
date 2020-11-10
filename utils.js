@@ -23,7 +23,7 @@ const memory = (field, date) => {
     return true;
   }
 
-  MEMORY.iTunes.datesChecked.push(date);
+  MEMORY[field].datesChecked.push(date);
   fs.writeFileSync("./memory.json", JSON.stringify(MEMORY, null, 2));
 
   return false;

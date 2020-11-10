@@ -160,9 +160,7 @@ async function buildMessagesFromLatestChart() {
     "https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Green.png",
 
     // 1-20 of the top 40
-    `🇺🇸 ${formattedDate} — **Top 40**:\n${formattedStrings
-      .slice(0, 20)
-      .join("\n")}`,
+    `🇺🇸 ${formattedDate}\n${formattedStrings.slice(0, 20).join("\n")}`,
 
     // 20-40 of the top 40
     formattedStrings.slice(20, 40).join("\n"),
@@ -176,13 +174,13 @@ async function buildMessagesFromLatestChart() {
       .join("\n")}`,
 
     `📈 **Biggest percent increases**:\n${biggestIncreases
-      .slice(0, 20)
+      .slice(0, 10)
       .join("\n")}`,
 
     `📉 **Biggest percent decreases**:\n${biggestIncreases
       .slice()
       .reverse()
-      .slice(0, 20)
+      .slice(0, 10)
       .join("\n")}`,
   ];
 }

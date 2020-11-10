@@ -53,8 +53,6 @@ module.exports = (bot) => {
     now.setDate(now.getDate() - 1);
     const yesterdayDateString = format(now, "yyyy-MM-dd");
 
-    console.log(yesterdayDateString);
-
     if (now.getUTCHours() === 12 && !memory("iTunes", yesterdayDateString)) {
       sendMessages(bot.channels, await getDailySailes(), [
         SALES_CHANNEL,
