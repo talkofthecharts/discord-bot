@@ -1,3 +1,7 @@
+const fs = require("fs");
+
+const MEMORY = JSON.parse(fs.readFileSync("./memory.json"));
+
 const toNumber = (str) => Number(str.replace(/,/g, ""));
 
 const precisionRound = (number, precision) =>
@@ -14,7 +18,19 @@ const sendMessages = (channels, messages, channelIds) => {
   });
 };
 
+const memory = (field, date) => {
+  if (MEMORY[field].datesChecked.includes(date)) {
+    return true;
+  }
+
+  MEMORY.iTunes.datesChecked.push(date);
+  fs.writeFileSync("./memory.json", JSON.stringify(MEMORY, null, 2));
+
+  return false;
+};
+
 module.exports = {
   getPercentChange,
   sendMessages,
+  memory,
 };

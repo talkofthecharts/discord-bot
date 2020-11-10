@@ -2,9 +2,10 @@ require("dotenv").config();
 
 const axios = require("axios");
 const cheerio = require("cheerio");
+const { memory } = require("console");
 const { format } = require("date-fns");
 const fs = require("fs");
-const { getPercentChange, sendMessages } = require("../../utils");
+const { getPercentChange, sendMessages, memory } = require("../../utils");
 
 const { SPOTIFY_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
 const POLLING_INTERVAL = 1000 * 60 * 2; // 2 minutes
@@ -112,11 +113,8 @@ async function buildMessagesFromLatestChart() {
     .split("/");
   const todayDateString = `${year}-${month}-${day}`;
 
-  if (MEMORY.Spotify.datesChecked.includes(todayDateString)) {
+  if (memory("Spotify", todayDateString)) {
     return [];
-  } else {
-    MEMORY.Spotify.datesChecked.push(todayDateString);
-    fs.writeFileSync(MEMORY_FILE, JSON.stringify(MEMORY, null, 2));
   }
 
   const yesterdayDate = new Date(todayDateString);

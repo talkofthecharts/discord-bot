@@ -2,13 +2,14 @@ require("dotenv").config();
 
 const axios = require("axios");
 const cheerio = require("cheerio");
-const { sendMessages } = require("../../utils");
+const { sendMessages, memory } = require("../../utils");
+const { format } = require("date-fns");
 
 const { SALES_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
-const POLLING_INTERVAL = 1000 * 60 * 60 * 24; // 1 day
+const POLLING_INTERVAL = 1000 * 60; // 1 minute
 
 // The 50th song has this many sales per day (requires calibration).
-let REFERENCE_SALES = 2400 / 7;
+const REFERENCE_SALES = 2400 / 7;
 
 async function getDailySailes() {
   const response = await axios.get("https://kworb.net/pop/week.html");
@@ -48,10 +49,16 @@ async function getDailySailes() {
 
 module.exports = (bot) => {
   const main = async () => {
-    sendMessages(bot.channels, await getDailySailes(), [
-      SALES_CHANNEL,
-      LIVE_CHART_UPDATES_CHANNEL,
-    ]);
+    const now = new Date();
+    now.setDate(now.getDate() - 1);
+    const yesterdayDateString = format(now, "yyyy-dd-mm");
+
+    if (now.getUTCHours() === 12 && !memory("iTunes", yesterdayDateString)) {
+      sendMessages(bot.channels, await getDailySailes(), [
+        SALES_CHANNEL,
+        LIVE_CHART_UPDATES_CHANNEL,
+      ]);
+    }
   };
 
   main();
