@@ -15,7 +15,7 @@ bot.login(TOKEN);
 bot.on("ready", () => {
   console.info(`Logged in as ${bot.user.tag}!`);
 
-  // Spotify(bot);
-  // iTunes(bot);
+  Spotify(bot);
+  iTunes(bot);
   Radio(bot);
 });
