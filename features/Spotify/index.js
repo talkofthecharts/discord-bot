@@ -2,15 +2,11 @@ require("dotenv").config();
 
 const axios = require("axios");
 const cheerio = require("cheerio");
-const { memory } = require("console");
 const { format } = require("date-fns");
-const fs = require("fs");
 const { getPercentChange, sendMessages, memory } = require("../../utils");
 
 const { SPOTIFY_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
 const POLLING_INTERVAL = 1000 * 60 * 2; // 2 minutes
-const MEMORY_FILE = "./memory.json";
-const MEMORY = JSON.parse(fs.readFileSync(MEMORY_FILE));
 
 function formatSongData({ song, artist, streams, index, yesterdaysChart }) {
   const position = `#${index}`;
