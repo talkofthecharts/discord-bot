@@ -5,7 +5,11 @@ const cheerio = require("cheerio");
 const { format } = require("date-fns");
 const { getPercentChange, sendMessages, memory } = require("../../utils");
 
-const { SPOTIFY_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
+const {
+  SPOTIFY_CHANNEL,
+  LIVE_CHART_UPDATES_CHANNEL,
+  TEST_CHANNEL,
+} = process.env;
 const POLLING_INTERVAL = 1000 * 60 * 2; // 2 minutes
 
 function formatSongData({ song, artist, streams, index, yesterdaysChart }) {
@@ -188,6 +192,7 @@ module.exports = (bot) => {
     sendMessages(bot.channels, await buildMessagesFromLatestChart(), [
       SPOTIFY_CHANNEL,
       LIVE_CHART_UPDATES_CHANNEL,
+      TEST_CHANNEL,
     ]);
   }, POLLING_INTERVAL);
 

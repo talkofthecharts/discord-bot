@@ -5,7 +5,7 @@ const cheerio = require("cheerio");
 const { sendMessages, memory } = require("../../utils");
 const { format } = require("date-fns");
 
-const { SALES_CHANNEL, LIVE_CHART_UPDATES_CHANNEL } = process.env;
+const { SALES_CHANNEL, LIVE_CHART_UPDATES_CHANNEL, TEST_CHANNEL } = process.env;
 const POLLING_INTERVAL = 1000 * 60; // 1 minute
 
 // The 50th song has this many sales per day (requires calibration).
@@ -51,12 +51,15 @@ module.exports = (bot) => {
   const main = async () => {
     const now = new Date();
     now.setDate(now.getDate() - 1);
-    const yesterdayDateString = format(now, "yyyy-dd-mm");
+    const yesterdayDateString = format(now, "yyyy-MM-dd");
+
+    console.log(yesterdayDateString);
 
     if (now.getUTCHours() === 12 && !memory("iTunes", yesterdayDateString)) {
       sendMessages(bot.channels, await getDailySailes(), [
         SALES_CHANNEL,
         LIVE_CHART_UPDATES_CHANNEL,
+        TEST_CHANNEL,
       ]);
     }
   };
