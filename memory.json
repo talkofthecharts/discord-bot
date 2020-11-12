@@ -2,21 +2,43 @@
   "Spotify": {
     "datesChecked": [
       "2020-11-07",
-      "2020-11-08"
+      "2020-11-08",
+      "2020-11-09",
+      "2020-11-10"
     ]
   },
   "iTunes": {
     "datesChecked": [
       "2020-11-08",
-      "2020-11-09"
+      "2020-11-09",
+      "2020-11-10"
     ],
     "numberOnes": [
-      "Luke Combs - Forever After All"
+      "Luke Combs - Forever After All",
+      "Thomas Rhett - What's Your Country Song"
     ]
   },
   "Radio": {
     "datesChecked": [
-      "2020-11-09"
+      "2020-11-09",
+      "2020-11-10"
+    ]
+  },
+  "AppleMusic": {
+    "numberOnes": [
+      "Bad Bunny & Jhay Cortez - Dakiti"
+    ],
+    "topTens": [
+      "Bad Bunny & Jhay Cortez - Dakiti",
+      "Ariana Grande - positions",
+      "Pop Smoke - For The Night (feat. Lil Baby & DaBaby)",
+      "Ariana Grande - pov",
+      "Kodak Black - Remember the Times",
+      "NAV - Don't Need Friends (feat. Lil Baby)",
+      "King Von - The Code (feat. Polo G)",
+      "Ariana Grande - 34+35",
+      "Luke Combs - Forever After All",
+      "Drake - Laugh Now Cry Later (feat. Lil Durk)"
     ]
   }
 }

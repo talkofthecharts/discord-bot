@@ -11,7 +11,7 @@ const POLLING_INTERVAL = 1000 * 60; // 1 minute
 const CHANNEL_IDS = [SALES_CHANNEL, LIVE_CHART_UPDATES_CHANNEL, TEST_CHANNEL];
 
 // The 50th song has this many sales per day (requires calibration).
-const REFERENCE_SALES = 2400 / 7;
+const REFERENCE_SALES = 2200 / 7;
 
 async function getNumberOne() {
   const response = await axios.get("https://kworb.net/charts/itunes/us.html");
@@ -22,7 +22,7 @@ async function getNumberOne() {
     return [];
   }
 
-  return [`"${numberOneSong}" is now #1 on US iTunes.`];
+  return [`**${numberOneSong}** is now #1 on US iTunes.`];
 }
 
 async function getDailySailes(yesterdayDateString) {

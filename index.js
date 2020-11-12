@@ -4,7 +4,8 @@ require("./keepAlive.js");
 const Discord = require("discord.js");
 const Spotify = require("./features/Spotify");
 const iTunes = require("./features/iTunes");
-const Radio = require("./features/Radio/index.js");
+const Radio = require("./features/Radio");
+const AppleMusic = require("./features/AppleMusic");
 
 const { TOKEN } = process.env;
 
@@ -18,4 +19,5 @@ bot.on("ready", () => {
   Spotify(bot);
   iTunes(bot);
   Radio(bot);
+  AppleMusic(bot);
 });
