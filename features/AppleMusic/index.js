@@ -34,12 +34,13 @@ async function getNumberOne(document) {
 async function getNewTopTens(document) {
   const topTen = [...document.querySelectorAll("tbody .mp.text")]
     .slice(0, 10)
-    .map((node) => node.textContent);
+    .map((node, index) => ({ song: node.textContent, position: index + 1 }));
 
   const newTopTens = memory("AppleMusic", { type: "top10", payload: topTen });
 
   return newTopTens.map(
-    (song) => `**${song}** has entered the Top 10 on US Apple Music.`
+    ({ song, position }) =>
+      `**${song}** has entered the Top 10 on US Apple Music at #${position}.`
   );
 }
 

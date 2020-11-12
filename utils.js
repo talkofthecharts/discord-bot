@@ -46,10 +46,10 @@ const memory = (field, { type = null, payload }) => {
 
   if (type === "top10") {
     const newTopTens = payload.filter(
-      (song) => !MEMORY[field].topTens.includes(song)
+      ({ song }) => !MEMORY[field].topTens.includes(song)
     );
 
-    MEMORY[field].topTens.push(...newTopTens);
+    MEMORY[field].topTens.push(...newTopTens.map(({ song }) => song));
     fs.writeFileSync("./memory.json", JSON.stringify(MEMORY, null, 2));
 
     return newTopTens;
