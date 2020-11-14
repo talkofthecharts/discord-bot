@@ -4,29 +4,38 @@
       "2020-11-07",
       "2020-11-08",
       "2020-11-09",
-      "2020-11-10"
+      "2020-11-10",
+      "2020-11-11",
+      "2020-11-12"
     ]
   },
   "iTunes": {
     "datesChecked": [
       "2020-11-08",
       "2020-11-09",
-      "2020-11-10"
+      "2020-11-10",
+      "2020-11-11"
     ],
     "numberOnes": [
       "Luke Combs - Forever After All",
-      "Thomas Rhett - What's Your Country Song"
+      "Thomas Rhett - What's Your Country Song",
+      "Morgan Wallen - More Than My Hometown",
+      "Chris Stapleton - Starting Over",
+      "Dan + Shay & Justin Bieber - 10,000 Hours",
+      "Billie Eilish - Therefore I Am"
     ]
   },
   "Radio": {
     "datesChecked": [
       "2020-11-09",
-      "2020-11-10"
+      "2020-11-10",
+      "2020-11-12"
     ]
   },
   "AppleMusic": {
     "numberOnes": [
-      "Bad Bunny & Jhay Cortez - Dakiti"
+      "Bad Bunny & Jhay Cortez - Dakiti",
+      "Future & Lil Uzi Vert - Stripes Like Burberry"
     ],
     "topTens": [
       "Bad Bunny & Jhay Cortez - Dakiti",
@@ -38,7 +47,20 @@
       "King Von - The Code (feat. Polo G)",
       "Ariana Grande - 34+35",
       "Luke Combs - Forever After All",
-      "Drake - Laugh Now Cry Later (feat. Lil Durk)"
+      "Drake - Laugh Now Cry Later (feat. Lil Durk)",
+      "Kodak Black - Eeny, Meeny, Miny, Moe",
+      "Kodak Black - I Wanna Live",
+      "Future & Lil Uzi Vert - Stripes Like Burberry",
+      "Future & Lil Uzi Vert - Marni on Me",
+      "Cardi B - WAP (feat. Megan Thee Stallion)",
+      "Future & Lil Uzi Vert - Sleeping on the Floor",
+      "Future & Lil Uzi Vert - Drankin N Smokin",
+      "Future & Lil Uzi Vert - Real Baby Pluto",
+      "Future & Lil Uzi Vert - Million Dollar Play",
+      "Future & Lil Uzi Vert - Plastic",
+      "Future & Lil Uzi Vert - That's It",
+      "Future - Rockstar Chainz",
+      "Future & Lil Uzi Vert - Bought a Bad Bitch"
     ]
   }
 }
